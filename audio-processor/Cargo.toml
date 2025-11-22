@@ -1,0 +1,57 @@
+[package]
+name = "sensevoice-audio-processor"
+version = "0.1.0"
+edition = "2021"
+authors = ["SenseVoice Team"]
+description = "High-performance audio processor with SIMD acceleration for SenseVoice"
+license = "MIT"
+repository = "https://github.com/lovemefan/SenseVoice.cpp"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# 音频解码
+symphonia = { version = "0.5", features = ["all"] }
+
+# 音频 I/O 和处理
+hound = "3.5"          # WAV 读写
+rubato = "0.15"        # 高质量重采样
+
+# SIMD 加速
+wide = { version = "0.7", features = ["safe"] }
+safe-arch = "0.7"
+
+# 信号处理
+dasp = "0.11"
+
+# 并发和异步
+rayon = "1.8"          # 并行处理
+
+# 错误处理
+anyhow = "1.0"
+thiserror = "1.0"
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# 日志
+log = "0.4"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+env_logger = "0.11"
+
+[[bench]]
+name = "audio_benchmark"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[profile.bench]
+inherits = "release"
