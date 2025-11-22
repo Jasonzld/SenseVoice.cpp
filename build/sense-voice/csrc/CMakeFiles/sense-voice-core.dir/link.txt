@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libsense-voice-core.a "CMakeFiles/sense-voice-core.dir/common.cc.o" "CMakeFiles/sense-voice-core.dir/sense-voice-frontend.cc.o" "CMakeFiles/sense-voice-core.dir/fftsg.cc.o" "CMakeFiles/sense-voice-core.dir/sense-voice-encoder.cc.o" "CMakeFiles/sense-voice-core.dir/sense-voice-decoder.cc.o" "CMakeFiles/sense-voice-core.dir/sense-voice.cc.o" "CMakeFiles/sense-voice-core.dir/silero-vad.cc.o"
+/usr/bin/ranlib ../../lib/libsense-voice-core.a

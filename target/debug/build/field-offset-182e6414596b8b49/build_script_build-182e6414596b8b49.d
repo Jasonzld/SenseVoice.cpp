@@ -1,0 +1,5 @@
+/home/user/SenseVoice.cpp/target/debug/build/field-offset-182e6414596b8b49/build_script_build-182e6414596b8b49.d: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/field-offset-0.3.6/build.rs
+
+/home/user/SenseVoice.cpp/target/debug/build/field-offset-182e6414596b8b49/build_script_build-182e6414596b8b49: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/field-offset-0.3.6/build.rs
+
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/field-offset-0.3.6/build.rs:

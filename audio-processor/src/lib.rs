@@ -88,23 +88,25 @@ pub fn process_audio_file<P: AsRef<Path>>(
 ///
 /// # 返回
 /// - `Result<Vec<(String, Vec<f32>)>>`: (文件名, 音频数据) 列表
-pub fn batch_process_audio_files<P: AsRef<Path>>(
+pub fn batch_process_audio_files<P: AsRef<Path> + Sync>(
     paths: &[P],
     config: &AudioConfig,
 ) -> Result<Vec<(String, Vec<f32>)>> {
     use rayon::prelude::*;
 
     paths
+        .iter()
+        .map(|p| p.as_ref())
+        .collect::<Vec<&Path>>()
         .par_iter()
         .map(|path| {
-            let path_ref = path.as_ref();
-            let file_name = path_ref
+            let file_name = path
                 .file_name()
                 .and_then(|n| n.to_str())
                 .unwrap_or("unknown")
                 .to_string();
 
-            let audio = process_audio_file(path_ref, config)?;
+            let audio = process_audio_file(path, config)?;
             Ok((file_name, audio))
         })
         .collect()

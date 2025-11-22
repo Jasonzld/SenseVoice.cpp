@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenseVoice Desktop - 专业暗色风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 260px;
+            background: #111111;
+            border-right: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 24px 12px;
+        }
+
+        .nav-section {
+            margin-bottom: 32px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding: 0 12px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+            color: #999;
+        }
+
+        .nav-item:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background: #1e3a8a;
+            color: #fff;
+        }
+
+        .nav-item-icon {
+            font-size: 18px;
+        }
+
+        .nav-item-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid #222;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .user-profile:hover {
+            background: #1a1a1a;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .user-status {
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #0a0a0a;
+        }
+
+        /* 顶部栏 */
+        .topbar {
+            padding: 20px 32px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .breadcrumb-item {
+            color: #999;
+        }
+
+        .breadcrumb-item.active {
+            color: #fff;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn-dark {
+            width: 36px;
+            height: 36px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #999;
+        }
+
+        .icon-btn-dark:hover {
+            background: #222;
+            border-color: #444;
+            color: #fff;
+        }
+
+        /* 内容区 */
+        .content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .page-description {
+            color: #999;
+            font-size: 15px;
+        }
+
+        /* 卡片 */
+        .card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* 上传区域 */
+        .upload-area {
+            border: 2px dashed #333;
+            border-radius: 12px;
+            padding: 60px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #3b82f6;
+            background: #0f0f0f;
+        }
+
+        .upload-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .upload-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* 文件列表 */
+        .file-table {
+            width: 100%;
+        }
+
+        .file-table thead {
+            border-bottom: 1px solid #222;
+        }
+
+        .file-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .file-table td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .file-table tr:hover td {
+            background: #0f0f0f;
+        }
+
+        .file-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon-box {
+            width: 40px;
+            height: 40px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-waiting {
+            background: #1a1a1a;
+            color: #999;
+        }
+
+        .status-processing {
+            background: #1e3a8a;
+            color: #93c5fd;
+        }
+
+        .status-completed {
+            background: #14532d;
+            color: #86efac;
+        }
+
+        /* 按钮 */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border: 1px solid #333;
+        }
+
+        .btn-secondary:hover {
+            background: #222;
+            border-color: #444;
+        }
+
+        /* 设置面板 */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+        }
+
+        .settings-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-panel {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            width: 900px;
+            max-height: 90vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .settings-sidebar {
+            width: 240px;
+            background: #0a0a0a;
+            border-right: 1px solid #222;
+            padding: 24px 16px;
+        }
+
+        .settings-nav-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            color: #999;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-nav-item:hover {
+            background: #111;
+            color: #fff;
+        }
+
+        .settings-nav-item.active {
+            background: #1e3a8a;
+            color: #fff;
+        }
+
+        .settings-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .settings-header {
+            margin-bottom: 32px;
+        }
+
+        .settings-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .settings-description {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .setting-group {
+            margin-bottom: 32px;
+        }
+
+        .setting-group-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .setting-label-wrap {
+            flex: 1;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .setting-hint {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .setting-input-dark {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 13px;
+            min-width: 200px;
+            transition: all 0.2s;
+        }
+
+        .setting-input-dark:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: #222;
+        }
+
+        .hotkey-tag {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 13px;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .close-btn-dark {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 32px;
+            height: 32px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #999;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .close-btn-dark:hover {
+            background: #222;
+            color: #fff;
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #222;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">🎙️</div>
+                    <span>SenseVoice</span>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">功能</div>
+                    <div class="nav-item active">
+                        <span class="nav-item-icon">📁</span>
+                        <span class="nav-item-text">文件转录</span>
+                    </div>
+                    <div class="nav-item">
+                        <span class="nav-item-icon">🎙️</span>
+                        <span class="nav-item-text">实时字幕</span>
+                    </div>
+                    <div class="nav-item">
+                        <span class="nav-item-icon">⌨️</span>
+                        <span class="nav-item-text">语音输入</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">管理</div>
+                    <div class="nav-item">
+                        <span class="nav-item-icon">📊</span>
+                        <span class="nav-item-text">历史记录</span>
+                    </div>
+                    <div class="nav-item" onclick="toggleSettings()">
+                        <span class="nav-item-icon">⚙️</span>
+                        <span class="nav-item-text">设置</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <div class="user-name">用户</div>
+                        <div class="user-status">在线</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容 -->
+        <div class="main-content">
+            <!-- 顶部栏 -->
+            <div class="topbar">
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">主页</span>
+                    <span>›</span>
+                    <span class="breadcrumb-item active">文件转录</span>
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn-dark" title="刷新">🔄</button>
+                    <button class="icon-btn-dark" title="帮助">❓</button>
+                    <button class="icon-btn-dark" title="通知">🔔</button>
+                </div>
+            </div>
+
+            <!-- 内容区 -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">音频转录</h1>
+                    <p class="page-description">上传音频或视频文件，自动转换为文本和字幕</p>
+                </div>
+
+                <!-- 上传卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">上传文件</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-area">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">选择文件或拖拽到此处</div>
+                            <div class="upload-hint">支持 MP4, MP3, WAV, FLAC, AAC, OGG, M4A 等格式</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文件列表卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">处理队列 (2)</span>
+                        <div class="btn-group">
+                            <button class="btn btn-primary">开始全部</button>
+                            <button class="btn btn-secondary">清空队列</button>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <table class="file-table">
+                            <thead>
+                                <tr>
+                                    <th>文件名</th>
+                                    <th>大小</th>
+                                    <th>时长</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="file-name-cell">
+                                            <div class="file-icon-box">🎵</div>
+                                            <div>
+                                                <div class="file-name">meeting_audio.mp3</div>
+                                                <div class="file-size">32.4 MB</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>32.4 MB</td>
+                                    <td>45:32</td>
+                                    <td><span class="status-badge status-waiting">等待中</span></td>
+                                    <td><button class="btn btn-secondary">移除</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="file-name-cell">
+                                            <div class="file-icon-box">🎬</div>
+                                            <div>
+                                                <div class="file-name">lecture_video.mp4</div>
+                                                <div class="file-size">245 MB</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>245 MB</td>
+                                    <td>1:23:45</td>
+                                    <td>
+                                        <span class="status-badge status-processing">处理中 45%</span>
+                                        <div class="progress-bar" style="margin-top: 8px;">
+                                            <div class="progress-fill" style="width: 45%;"></div>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-secondary">暂停</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置模态框 -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-panel">
+            <button class="close-btn-dark" onclick="toggleSettings()">✕</button>
+
+            <div class="settings-sidebar">
+                <div class="settings-nav-item active">⌨️ 快捷键</div>
+                <div class="settings-nav-item">🤖 模型</div>
+                <div class="settings-nav-item">🌐 大模型</div>
+                <div class="settings-nav-item">📁 文件</div>
+                <div class="settings-nav-item">📄 输出</div>
+                <div class="settings-nav-item">🎨 外观</div>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h2 class="settings-title">快捷键设置</h2>
+                    <p class="settings-description">配置全局快捷键和键盘行为</p>
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-group-title">语音输入</div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">开始/停止录音</div>
+                            <div class="setting-hint">触发语音输入功能</div>
+                        </div>
+                        <div class="hotkey-tag">Ctrl + Shift + Space</div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">暂停/继续</div>
+                            <div class="setting-hint">暂停或恢复当前操作</div>
+                        </div>
+                        <div class="hotkey-tag">Ctrl + Shift + P</div>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-group-title">模型设置</div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">当前模型</div>
+                            <div class="setting-hint">选择识别质量和速度</div>
+                        </div>
+                        <select class="setting-input-dark">
+                            <option>SenseVoice-Q4K (推荐)</option>
+                            <option>SenseVoice-Q8</option>
+                            <option>SenseVoice-FP16</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">模型路径</div>
+                            <div class="setting-hint">本地模型文件位置</div>
+                        </div>
+                        <input class="setting-input-dark" type="text" value="/models/sensevoice.gguf" />
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-group-title">大模型接口</div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">服务提供商</div>
+                            <div class="setting-hint">文本优化和修正</div>
+                        </div>
+                        <select class="setting-input-dark">
+                            <option>禁用</option>
+                            <option>OpenAI</option>
+                            <option>Claude</option>
+                            <option>本地 Ollama</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">API Endpoint</div>
+                        </div>
+                        <input class="setting-input-dark" type="text" placeholder="https://api.openai.com/v1" />
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label-wrap">
+                            <div class="setting-label">API Key</div>
+                        </div>
+                        <input class="setting-input-dark" type="password" placeholder="输入您的 API 密钥" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSettings() {
+            document.getElementById('settingsModal').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

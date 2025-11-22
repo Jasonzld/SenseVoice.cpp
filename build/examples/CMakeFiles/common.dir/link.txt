@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libcommon.a "CMakeFiles/common.dir/common-ggml.cc.o"
+/usr/bin/ranlib ../lib/libcommon.a

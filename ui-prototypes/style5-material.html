@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenseVoice - Material Design 风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --md-primary: #6750A4;
+            --md-primary-container: #EADDFF;
+            --md-on-primary: #FFFFFF;
+            --md-on-primary-container: #21005D;
+            --md-secondary: #625B71;
+            --md-secondary-container: #E8DEF8;
+            --md-on-secondary-container: #1D192B;
+            --md-tertiary: #7D5260;
+            --md-tertiary-container: #FFD8E4;
+            --md-surface: #FEF7FF;
+            --md-surface-variant: #E7E0EC;
+            --md-on-surface: #1C1B1F;
+            --md-on-surface-variant: #49454F;
+            --md-outline: #79747E;
+            --md-elevation-1: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+            --md-elevation-2: 0 1px 2px rgba(0,0,0,0.3), 0 2px 6px 2px rgba(0,0,0,0.15);
+            --md-elevation-3: 0 4px 8px 3px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #FEF7FF 0%, #E8DEF8 100%);
+            color: var(--md-on-surface);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .app-header {
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+            padding: 20px 32px;
+            border-radius: 28px 28px 0 0;
+            box-shadow: var(--md-elevation-2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Buttons - Material Design 3 */
+        .md-button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            text-transform: none;
+            letter-spacing: 0.1px;
+        }
+
+        .md-button-filled {
+            background: var(--md-tertiary);
+            color: white;
+            box-shadow: var(--md-elevation-1);
+        }
+
+        .md-button-filled:hover {
+            box-shadow: var(--md-elevation-2);
+            transform: translateY(-1px);
+        }
+
+        .md-button-outlined {
+            background: transparent;
+            color: var(--md-on-primary);
+            border: 1px solid var(--md-on-primary);
+        }
+
+        .md-button-outlined:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .md-button-text {
+            background: transparent;
+            color: var(--md-primary);
+            padding: 10px 12px;
+        }
+
+        .md-button-text:hover {
+            background: var(--md-primary-container);
+        }
+
+        /* Navigation */
+        .nav-rail {
+            background: var(--md-surface);
+            border-radius: 0 0 0 28px;
+            padding: 12px 0;
+            box-shadow: var(--md-elevation-2);
+            float: left;
+            width: 80px;
+        }
+
+        .nav-item {
+            width: 56px;
+            height: 56px;
+            margin: 4px 12px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            background: transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--md-secondary-container);
+        }
+
+        .nav-item.active {
+            background: var(--md-secondary-container);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            width: 4px;
+            height: 32px;
+            background: var(--md-primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--md-on-surface-variant);
+        }
+
+        .nav-item.active .nav-icon {
+            fill: var(--md-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--md-surface);
+            border-radius: 0 0 28px 0;
+            padding: 32px;
+            box-shadow: var(--md-elevation-2);
+            margin-left: 80px;
+            min-height: 600px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--md-on-surface);
+            margin-bottom: 24px;
+        }
+
+        /* Cards */
+        .md-card {
+            background: var(--md-surface);
+            border: 1px solid var(--md-outline);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .md-card:hover {
+            box-shadow: var(--md-elevation-1);
+            border-color: var(--md-primary);
+        }
+
+        .md-card-elevated {
+            background: var(--md-surface);
+            border: none;
+            box-shadow: var(--md-elevation-1);
+        }
+
+        .md-card-elevated:hover {
+            box-shadow: var(--md-elevation-2);
+        }
+
+        /* Upload Area */
+        .upload-area {
+            background: var(--md-primary-container);
+            border: 2px dashed var(--md-primary);
+            border-radius: 16px;
+            padding: 48px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 24px;
+        }
+
+        .upload-area:hover {
+            background: var(--md-secondary-container);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--md-primary);
+        }
+
+        .upload-text {
+            font-size: 16px;
+            color: var(--md-on-primary-container);
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 14px;
+            color: var(--md-on-surface-variant);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .option-card {
+            background: var(--md-surface-variant);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .option-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--md-on-surface-variant);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Material Select */
+        .md-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--md-outline);
+            border-radius: 8px;
+            background: var(--md-surface);
+            color: var(--md-on-surface);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .md-select:focus {
+            outline: none;
+            border-color: var(--md-primary);
+            border-width: 2px;
+            padding: 11px 15px;
+        }
+
+        /* Chips */
+        .chip-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .md-chip {
+            padding: 8px 16px;
+            border: 1px solid var(--md-outline);
+            border-radius: 8px;
+            background: var(--md-surface);
+            color: var(--md-on-surface-variant);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .md-chip:hover {
+            background: var(--md-secondary-container);
+        }
+
+        .md-chip.selected {
+            background: var(--md-secondary-container);
+            color: var(--md-on-secondary-container);
+            border-color: var(--md-secondary);
+        }
+
+        /* File List */
+        .file-list {
+            margin-top: 24px;
+        }
+
+        .file-item {
+            background: var(--md-surface-variant);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .file-item:hover {
+            box-shadow: var(--md-elevation-1);
+            transform: translateX(4px);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--md-primary-container);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--md-primary);
+            font-weight: 500;
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--md-on-surface);
+            margin-bottom: 4px;
+        }
+
+        .file-meta {
+            font-size: 12px;
+            color: var(--md-on-surface-variant);
+        }
+
+        /* Progress Bar - Material Design */
+        .progress-container {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--md-surface-variant);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--md-primary);
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: var(--md-on-surface-variant);
+        }
+
+        /* FAB - Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 56px;
+            height: 56px;
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--md-elevation-3);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .fab:hover {
+            box-shadow: 0 6px 14px 4px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3);
+            transform: scale(1.05);
+        }
+
+        /* Modal - Material Design */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--md-surface);
+            border-radius: 28px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--md-elevation-3);
+        }
+
+        .modal-header {
+            padding: 24px 24px 16px;
+            border-bottom: 1px solid var(--md-outline);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--md-on-surface);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        /* Settings Sections */
+        .settings-section {
+            margin-bottom: 32px;
+        }
+
+        .settings-section-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--md-primary);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--md-primary-container);
+        }
+
+        .settings-item {
+            background: var(--md-surface-variant);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .settings-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .settings-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--md-on-surface);
+        }
+
+        .settings-description {
+            font-size: 12px;
+            color: var(--md-on-surface-variant);
+            margin-bottom: 12px;
+        }
+
+        /* Input Fields */
+        .md-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--md-outline);
+            border-radius: 8px;
+            background: var(--md-surface);
+            color: var(--md-on-surface);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .md-input:focus {
+            outline: none;
+            border-color: var(--md-primary);
+            border-width: 2px;
+            padding: 11px 15px;
+        }
+
+        /* Switch */
+        .md-switch {
+            width: 52px;
+            height: 32px;
+            background: var(--md-outline);
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .md-switch.active {
+            background: var(--md-primary);
+        }
+
+        .md-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 4px;
+            left: 4px;
+            transition: all 0.3s;
+            box-shadow: var(--md-elevation-1);
+        }
+
+        .md-switch.active::after {
+            left: 24px;
+        }
+
+        /* Hotkey Display */
+        .hotkey-display {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .hotkey-key {
+            background: var(--md-primary-container);
+            color: var(--md-on-primary-container);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            background: var(--md-surface-variant);
+            border-radius: 0 0 28px 28px;
+            padding: 12px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--md-on-surface-variant);
+            box-shadow: var(--md-elevation-1);
+            margin-left: 80px;
+            margin-top: 2px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--md-surface-variant);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--md-outline);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--md-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="app-title">🎙️ SenseVoice</div>
+            <div class="header-actions">
+                <button class="md-button md-button-outlined" onclick="toggleSettings()">
+                    ⚙️ 设置
+                </button>
+                <button class="md-button md-button-filled">
+                    📊 统计
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Rail + Main Content Container -->
+        <div style="overflow: hidden;">
+            <!-- Navigation Rail -->
+            <div class="nav-rail">
+                <div class="nav-item active" onclick="switchTab('file')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                </div>
+                <div class="nav-item" onclick="switchTab('realtime')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                    </svg>
+                </div>
+                <div class="nav-item" onclick="switchTab('input')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M17,7H22V17H17V19A1,1 0 0,0 18,20H20V22H17.5C16.95,22 16,21.55 16,21C16,21.55 15.05,22 14.5,22H12V20H14A1,1 0 0,0 15,19V5A1,1 0 0,0 14,4H12V2H14.5C15.05,2 16,2.45 16,3C16,2.45 16.95,2 17.5,2H20V4H18A1,1 0 0,0 17,5V7M2,7H13V9H4V15H13V17H2V7M20,15V9H17V15H20Z"/>
+                    </svg>
+                </div>
+                <div class="nav-item" onclick="switchTab('history')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M13.5,8H12V13L16.28,15.54L17,14.33L13.5,12.25V8M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div id="file-tab" class="tab-content">
+                    <h2 class="section-title">文件转录</h2>
+
+                    <!-- Upload Area -->
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-icon">📁</div>
+                        <div class="upload-text">点击或拖拽文件到此处</div>
+                        <div class="upload-hint">支持 MP3, WAV, MP4, AVI, MKV 等格式</div>
+                        <input type="file" id="fileInput" multiple style="display: none">
+                    </div>
+
+                    <!-- Options -->
+                    <div class="options-grid">
+                        <div class="option-card">
+                            <label class="option-label">识别语言</label>
+                            <select class="md-select">
+                                <option>自动检测</option>
+                                <option>中文</option>
+                                <option>粤语</option>
+                                <option>英语</option>
+                                <option>日语</option>
+                                <option>韩语</option>
+                            </select>
+                        </div>
+
+                        <div class="option-card">
+                            <label class="option-label">模型选择</label>
+                            <select class="md-select">
+                                <option>Q4_K (推荐)</option>
+                                <option>Q8_0 (高质量)</option>
+                                <option>FP16 (最高质量)</option>
+                            </select>
+                        </div>
+
+                        <div class="option-card">
+                            <label class="option-label">线程数</label>
+                            <select class="md-select">
+                                <option>自动</option>
+                                <option>4</option>
+                                <option>8</option>
+                                <option>16</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Output Format Chips -->
+                    <div class="settings-section">
+                        <label class="option-label">输出格式</label>
+                        <div class="chip-group">
+                            <div class="md-chip selected">SRT 字幕</div>
+                            <div class="md-chip">ASS 字幕</div>
+                            <div class="md-chip">VTT 字幕</div>
+                            <div class="md-chip">纯文本</div>
+                            <div class="md-chip">Markdown</div>
+                            <div class="md-chip">JSON</div>
+                        </div>
+                    </div>
+
+                    <!-- File List -->
+                    <div class="file-list">
+                        <div class="file-item">
+                            <div class="file-info">
+                                <div class="file-icon">MP3</div>
+                                <div class="file-details">
+                                    <div class="file-name">会议录音_2024.mp3</div>
+                                    <div class="file-meta">24.5 MB • 32:15</div>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <div class="progress-text">65% 完成</div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="md-button md-button-text">⏸️ 暂停</button>
+                                <button class="md-button md-button-text">❌ 取消</button>
+                            </div>
+                        </div>
+
+                        <div class="file-item">
+                            <div class="file-info">
+                                <div class="file-icon">MP4</div>
+                                <div class="file-details">
+                                    <div class="file-name">演讲视频.mp4</div>
+                                    <div class="file-meta">156 MB • 1:24:30</div>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <div class="progress-text">等待中</div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="md-button md-button-text">▶️ 开始</button>
+                                <button class="md-button md-button-text">🗑️ 删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-indicator"></div>
+                <span>就绪</span>
+            </div>
+            <div class="status-item">
+                模型: Q4_K
+            </div>
+            <div class="status-item">
+                内存: 2.4 GB / 16 GB
+            </div>
+            <div class="status-item">
+                GPU: NVIDIA RTX 4090 (已启用)
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="fab" onclick="document.getElementById('fileInput').click()">
+        ➕
+    </button>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">⚙️ 设置</h2>
+            </div>
+            <div class="modal-body">
+                <!-- 快捷键设置 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">⌨️ 快捷键配置</h3>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <span class="settings-label">开始/停止录音</span>
+                            <div class="hotkey-display">
+                                <span class="hotkey-key">Ctrl</span>
+                                <span class="hotkey-key">Shift</span>
+                                <span class="hotkey-key">Space</span>
+                                <button class="md-button md-button-text">修改</button>
+                            </div>
+                        </div>
+                        <div class="settings-description">全局热键，在任何应用中都可触发</div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <span class="settings-label">语音输入模式</span>
+                            <div class="hotkey-display">
+                                <span class="hotkey-key">Ctrl</span>
+                                <span class="hotkey-key">Alt</span>
+                                <span class="hotkey-key">V</span>
+                                <button class="md-button md-button-text">修改</button>
+                            </div>
+                        </div>
+                        <div class="settings-description">启动语音输入法，识别结果自动注入光标位置</div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <span class="settings-label">实时字幕</span>
+                            <div class="hotkey-display">
+                                <span class="hotkey-key">Ctrl</span>
+                                <span class="hotkey-key">Shift</span>
+                                <span class="hotkey-key">S</span>
+                                <button class="md-button md-button-text">修改</button>
+                            </div>
+                        </div>
+                        <div class="settings-description">开启系统音频实时字幕显示</div>
+                    </div>
+                </div>
+
+                <!-- 模型设置 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🤖 本地模型配置</h3>
+
+                    <div class="settings-item">
+                        <label class="settings-label">模型文件路径</label>
+                        <div class="settings-description">SenseVoice GGUF 模型文件位置</div>
+                        <div style="display: flex; gap: 8px; margin-top: 8px;">
+                            <input type="text" class="md-input"
+                                   value="/models/sensevoice-q4k.gguf"
+                                   placeholder="选择模型文件路径">
+                            <button class="md-button md-button-filled">浏览</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">默认模型</label>
+                        <select class="md-select" style="margin-top: 8px;">
+                            <option>Q3_K (最小, 85MB)</option>
+                            <option selected>Q4_K (推荐, 128MB)</option>
+                            <option>Q8_0 (高质量, 235MB)</option>
+                            <option>FP16 (最高质量, 458MB)</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <div>
+                                <div class="settings-label">GPU 加速</div>
+                                <div class="settings-description">使用 CUDA/Metal 加速推理</div>
+                            </div>
+                            <div class="md-switch active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">推理线程数</label>
+                        <select class="md-select" style="margin-top: 8px;">
+                            <option selected>自动检测</option>
+                            <option>4 线程</option>
+                            <option>8 线程</option>
+                            <option>16 线程</option>
+                            <option>32 线程</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- LLM 接口设置 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🌐 大模型接口配置</h3>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <div>
+                                <div class="settings-label">启用在线文本修正</div>
+                                <div class="settings-description">使用 LLM API 修正识别错误和错别字</div>
+                            </div>
+                            <div class="md-switch" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">LLM 提供商</label>
+                        <select class="md-select" style="margin-top: 8px;">
+                            <option>OpenAI (GPT-4)</option>
+                            <option>Anthropic (Claude)</option>
+                            <option>本地 Ollama</option>
+                            <option>其他 OpenAI 兼容 API</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">API 端点</label>
+                        <input type="text" class="md-input"
+                               value="https://api.openai.com/v1"
+                               placeholder="https://api.openai.com/v1"
+                               style="margin-top: 8px;">
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">API 密钥</label>
+                        <input type="password" class="md-input"
+                               value="sk-xxxxxxxxxxxxxxxx"
+                               placeholder="输入 API Key"
+                               style="margin-top: 8px;">
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">模型名称</label>
+                        <input type="text" class="md-input"
+                               value="gpt-4-turbo"
+                               placeholder="gpt-4-turbo"
+                               style="margin-top: 8px;">
+                    </div>
+                </div>
+
+                <!-- 媒体文件操作设置 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">📁 媒体文件操作</h3>
+
+                    <div class="settings-item">
+                        <label class="settings-label">输出目录</label>
+                        <div class="settings-description">转录结果保存位置</div>
+                        <div style="display: flex; gap: 8px; margin-top: 8px;">
+                            <input type="text" class="md-input"
+                                   value="~/Documents/SenseVoice/Output"
+                                   placeholder="选择输出目录">
+                            <button class="md-button md-button-filled">浏览</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <div>
+                                <div class="settings-label">完成后自动打开文件</div>
+                                <div class="settings-description">转录完成后自动打开输出文件</div>
+                            </div>
+                            <div class="md-switch active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <div>
+                                <div class="settings-label">保留原始音频</div>
+                                <div class="settings-description">视频文件处理后保留提取的音频</div>
+                            </div>
+                            <div class="md-switch" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">音频格式转换</label>
+                        <div class="settings-description">将音频转换为标准格式（16kHz, 单声道）</div>
+                        <div class="chip-group" style="margin-top: 8px;">
+                            <div class="md-chip selected">WAV</div>
+                            <div class="md-chip">MP3</div>
+                            <div class="md-chip">FLAC</div>
+                            <div class="md-chip">不转换</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 输出文件类型选择 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">📄 输出格式选择</h3>
+
+                    <div class="settings-item">
+                        <label class="settings-label">字幕格式</label>
+                        <div class="chip-group" style="margin-top: 8px;">
+                            <div class="md-chip selected">SRT</div>
+                            <div class="md-chip selected">ASS</div>
+                            <div class="md-chip">VTT</div>
+                            <div class="md-chip">LRC</div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">文本格式</label>
+                        <div class="chip-group" style="margin-top: 8px;">
+                            <div class="md-chip selected">TXT (纯文本)</div>
+                            <div class="md-chip">Markdown</div>
+                            <div class="md-chip">JSON</div>
+                            <div class="md-chip">HTML</div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <div>
+                                <div class="settings-label">包含时间戳</div>
+                                <div class="settings-description">在文本输出中包含时间信息</div>
+                            </div>
+                            <div class="md-switch active" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-header">
+                            <div>
+                                <div class="settings-label">包含说话人分离</div>
+                                <div class="settings-description">标注不同说话人（实验性）</div>
+                            </div>
+                            <div class="md-switch" onclick="this.classList.toggle('active')"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <label class="settings-label">字幕样式</label>
+                        <select class="md-select" style="margin-top: 8px;">
+                            <option>默认样式</option>
+                            <option>电影字幕（黄色，底部）</option>
+                            <option>演讲字幕（白色，顶部）</option>
+                            <option>双语字幕</option>
+                            <option>自定义样式</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--md-outline);">
+                    <button class="md-button md-button-text" onclick="toggleSettings()">取消</button>
+                    <button class="md-button md-button-filled" onclick="toggleSettings()">保存设置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSettings() {
+            document.getElementById('settingsModal').classList.toggle('active');
+        }
+
+        function switchTab(tab) {
+            // Tab switching logic
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('settingsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleSettings();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+[package]
+name = "sensevoice-desktop"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "sensevoice"
+path = "src/main.rs"
+
+[dependencies]
+# 内部依赖
+sensevoice-sys = { workspace = true }
+sensevoice-audio-processor = { workspace = true }
+
+# GUI (暂时注释，因为 gpui 需要特殊配置)
+# gpui = { git = "https://github.com/zed-industries/zed", branch = "main" }
+
+# 平台集成 (暂时注释，等待依赖安装或实现)
+# global-hotkey = "0.5"
+# tray-icon = "0.14"
+# enigo = "0.2"
+# cpal = "0.15"
+# notify = "6.1"
+
+# 异步
+tokio = { workspace = true }
+async-trait = { workspace = true }
+
+# HTTP / LLM
+reqwest = { version = "0.11", features = ["json", "rustls-tls"], default-features = false }
+
+# 序列化
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+
+# 日志
+log = { workspace = true }
+env_logger = { workspace = true }
+
+# 错误处理
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# 实用工具
+chrono = { workspace = true }
+uuid = { workspace = true }
+dirs = { workspace = true }
+
+[build-dependencies]
+cc = "1.0"
+
+[dev-dependencies]
+criterion = "0.5"
+proptest = "1.4"

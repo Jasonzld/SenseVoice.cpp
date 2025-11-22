@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -Wall -pthread -O3 -O3 -DNDEBUG -shared -Wl,-soname,libggml.so -o ../../../../../lib/libggml.so "CMakeFiles/ggml.dir/ggml-backend-reg.cpp.o"  -Wl,-rpath,/home/user/SenseVoice.cpp/build/lib: -ldl ../../../../../lib/libggml-cpu.so ../../../../../lib/libggml-base.so 

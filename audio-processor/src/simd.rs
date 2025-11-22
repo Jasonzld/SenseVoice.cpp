@@ -23,21 +23,19 @@ impl SimdProcessor {
         for chunk in chunks {
             let i16_vals: [i16; 8] = chunk.try_into().unwrap();
 
-            // i16 → i32（避免溢出）
-            let i32_vals: [i32; 8] = [
-                i16_vals[0] as i32,
-                i16_vals[1] as i32,
-                i16_vals[2] as i32,
-                i16_vals[3] as i32,
-                i16_vals[4] as i32,
-                i16_vals[5] as i32,
-                i16_vals[6] as i32,
-                i16_vals[7] as i32,
+            // i16 → f32 并归一化
+            let f32_vals: [f32; 8] = [
+                i16_vals[0] as f32 / 32768.0,
+                i16_vals[1] as f32 / 32768.0,
+                i16_vals[2] as f32 / 32768.0,
+                i16_vals[3] as f32 / 32768.0,
+                i16_vals[4] as f32 / 32768.0,
+                i16_vals[5] as f32 / 32768.0,
+                i16_vals[6] as f32 / 32768.0,
+                i16_vals[7] as f32 / 32768.0,
             ];
 
-            // i32 → f32 并归一化
-            let f32_vec = f32x8::from(i32_vals);
-            let normalized = f32_vec / f32x8::splat(32768.0);
+            let normalized = f32x8::new(f32_vals);
 
             output.extend_from_slice(&normalized.to_array());
         }
@@ -170,10 +168,9 @@ impl SimdProcessor {
         let scale = target_peak / peak;
         let scale_vec = f32x8::splat(scale);
 
-        let chunks = audio.chunks_exact_mut(SIMD_WIDTH);
-        let remainder = chunks.into_remainder();
+        let (chunks, remainder) = audio.split_at_mut((audio.len() / SIMD_WIDTH) * SIMD_WIDTH);
 
-        for chunk in chunks {
+        for chunk in chunks.chunks_exact_mut(SIMD_WIDTH) {
             let data = f32x8::new(chunk.try_into().unwrap());
             let scaled = data * scale_vec;
             chunk.copy_from_slice(&scaled.to_array());

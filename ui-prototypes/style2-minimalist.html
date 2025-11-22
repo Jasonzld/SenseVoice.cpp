@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenseVoice Desktop - 极简主义风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 头部 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        .nav-link:hover {
+            color: #000;
+        }
+
+        .nav-link.active {
+            color: #000;
+            border-bottom-color: #000;
+        }
+
+        .icon-btn-minimal {
+            background: none;
+            border: 1px solid #e0e0e0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+
+        .icon-btn-minimal:hover {
+            background: #f5f5f5;
+            border-color: #000;
+        }
+
+        /* 主内容 */
+        .content {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        /* 上传区域 */
+        .upload-zone {
+            border: 2px dashed #d0d0d0;
+            border-radius: 12px;
+            padding: 80px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .upload-zone:hover {
+            border-color: #000;
+            background: #fafafa;
+        }
+
+        .upload-zone-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+
+        .upload-zone-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .upload-zone-hint {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* 文件列表 */
+        .file-list {
+            margin-bottom: 40px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .file-item:hover {
+            background: #fafafa;
+            padding-left: 12px;
+            padding-right: 12px;
+            margin: 0 -12px;
+            border-radius: 8px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .file-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .file-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .file-meta {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* 按钮 */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* 设置面板 */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .settings-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-content {
+            background: #fff;
+            width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .settings-header {
+            padding: 32px 32px 24px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .settings-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .settings-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .settings-body {
+            padding: 32px;
+        }
+
+        .settings-section {
+            margin-bottom: 48px;
+        }
+
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .settings-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label-group {
+            flex: 1;
+        }
+
+        .setting-label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .setting-description {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .setting-control {
+            min-width: 200px;
+            text-align: right;
+        }
+
+        .input-minimal {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 14px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .input-minimal:focus {
+            outline: none;
+            border-color: #000;
+        }
+
+        .select-minimal {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            background: #fff;
+            transition: all 0.2s;
+        }
+
+        .select-minimal:hover {
+            border-color: #000;
+        }
+
+        .hotkey-box {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        /* 状态栏 */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 24px;
+            margin-top: 60px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .status-left {
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="logo">SenseVoice</div>
+            <div class="header-nav">
+                <a href="#" class="nav-link active">文件转录</a>
+                <a href="#" class="nav-link">实时字幕</a>
+                <a href="#" class="nav-link">语音输入</a>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button class="icon-btn-minimal">🔔</button>
+                <button class="icon-btn-minimal" onclick="toggleSettings()">⚙️</button>
+            </div>
+        </div>
+
+        <!-- 主内容 -->
+        <div class="content">
+            <h1 class="section-title">音频转录</h1>
+            <p class="section-subtitle">将音频或视频文件转换为文本，支持多种格式和语言</p>
+
+            <!-- 上传区域 -->
+            <div class="upload-zone">
+                <div class="upload-zone-icon">📂</div>
+                <div class="upload-zone-text">选择文件或拖拽到此处</div>
+                <div class="upload-zone-hint">支持 MP4, MP3, WAV, FLAC, AAC, OGG, M4A 等格式</div>
+            </div>
+
+            <!-- 文件列表 -->
+            <div class="file-list">
+                <div class="file-item">
+                    <div class="file-info">
+                        <div class="file-icon">🎵</div>
+                        <div class="file-details">
+                            <div class="file-name">meeting_audio.mp3</div>
+                            <div class="file-meta">45分32秒 · 32.4 MB · 等待处理</div>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <button class="btn-secondary btn">移除</button>
+                    </div>
+                </div>
+
+                <div class="file-item">
+                    <div class="file-info">
+                        <div class="file-icon">🎬</div>
+                        <div class="file-details">
+                            <div class="file-name">lecture_video.mp4</div>
+                            <div class="file-meta">1小时23分45秒 · 245 MB · 处理中 45%</div>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <button class="btn-secondary btn">暂停</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div style="display: flex; gap: 12px;">
+                <button class="btn btn-primary">开始转录</button>
+                <button class="btn btn-secondary">清空列表</button>
+            </div>
+        </div>
+
+        <!-- 状态栏 -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span>模型: SenseVoice-Q4K</span>
+                <span>内存: 245 MB</span>
+                <span>GPU: 启用</span>
+            </div>
+            <div>版本 1.0.0</div>
+        </div>
+    </div>
+
+    <!-- 设置模态框 -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <button class="close-btn" onclick="toggleSettings()">✕</button>
+
+            <div class="settings-header">
+                <h2 class="settings-title">设置</h2>
+                <p class="settings-subtitle">配置应用程序偏好设置和功能选项</p>
+            </div>
+
+            <div class="settings-body">
+                <!-- 快捷键 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">⌨️ 快捷键</h3>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">开始/停止录音</div>
+                            <div class="setting-description">触发语音输入功能</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="hotkey-box">⌃⇧Space</div>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">暂停/继续</div>
+                            <div class="setting-description">暂停或恢复当前操作</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="hotkey-box">⌃⇧P</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 模型设置 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🤖 语音识别模型</h3>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">模型选择</div>
+                            <div class="setting-description">选择识别质量和速度</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="select-minimal">
+                                <option>Q4K - 推荐</option>
+                                <option>Q8 - 高质量</option>
+                                <option>FP16 - 最高质量</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">模型路径</div>
+                            <div class="setting-description">本地模型文件位置</div>
+                        </div>
+                        <div class="setting-control">
+                            <input class="input-minimal" type="text" value="/models/sensevoice.gguf" />
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">GPU 加速</div>
+                            <div class="setting-description">硬件加速选项</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="select-minimal">
+                                <option>自动检测</option>
+                                <option>CUDA</option>
+                                <option>Metal</option>
+                                <option>禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 大模型接口 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🌐 大模型接口</h3>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">服务提供商</div>
+                            <div class="setting-description">文本优化和修正</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="select-minimal">
+                                <option>禁用</option>
+                                <option>OpenAI</option>
+                                <option>Claude</option>
+                                <option>本地 Ollama</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">API Endpoint</div>
+                        </div>
+                        <div class="setting-control">
+                            <input class="input-minimal" type="text" placeholder="https://api.openai.com/v1" />
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">API Key</div>
+                        </div>
+                        <div class="setting-control">
+                            <input class="input-minimal" type="password" placeholder="输入您的 API 密钥" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 输出设置 -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">📄 输出设置</h3>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">默认输出目录</div>
+                        </div>
+                        <div class="setting-control">
+                            <input class="input-minimal" type="text" value="~/Documents/SenseVoice" />
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">字幕格式</div>
+                            <div class="setting-description">选择输出的字幕格式</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="select-minimal">
+                                <option>SRT</option>
+                                <option>ASS</option>
+                                <option>VTT</option>
+                                <option>LRC</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label-group">
+                            <div class="setting-label">包含时间戳</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="select-minimal">
+                                <option>是</option>
+                                <option>否</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSettings() {
+            const modal = document.getElementById('settingsModal');
+            modal.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

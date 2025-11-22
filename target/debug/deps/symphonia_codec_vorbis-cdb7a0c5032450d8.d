@@ -1,0 +1,11 @@
+/home/user/SenseVoice.cpp/target/debug/deps/symphonia_codec_vorbis-cdb7a0c5032450d8.d: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/lib.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/codebook.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/common.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/dsp.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/floor.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/residue.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/window.rs
+
+/home/user/SenseVoice.cpp/target/debug/deps/libsymphonia_codec_vorbis-cdb7a0c5032450d8.rmeta: /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/lib.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/codebook.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/common.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/dsp.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/floor.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/residue.rs /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/window.rs
+
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/lib.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/codebook.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/common.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/dsp.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/floor.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/residue.rs:
+/root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/symphonia-codec-vorbis-0.5.5/src/window.rs:
