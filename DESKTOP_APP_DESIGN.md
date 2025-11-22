@@ -92,8 +92,8 @@
 | **前端** | Vue 3 + TypeScript | 响应式、组件化 |
 | **UI 库** | Element Plus / Naive UI | 成熟的组件库 |
 | **核心引擎** | SenseVoice.cpp (C++) | 语音识别核心 |
-| **音频处理** | FFmpeg (通过 ffmpeg-rust) | 多媒体处理 |
-| **音频捕获** | cpal (Rust) | 跨平台音频 I/O |
+| **音频处理** | Symphonia + SIMD (纯 Rust) | 高性能音频解码，SIMD 加速 |
+| **音频捕获** | cpal + WASAPI/NEON (Rust) | 跨平台音频 I/O，系统音频捕获 |
 | **系统集成** | rdev (全局热键) | 键盘监听 |
 | **文本注入** | enigo (Rust) | 模拟键盘输入 |
 | **错别字修正** | jieba-rs + 自定义模型 | 中文分词与纠错 |
@@ -440,12 +440,15 @@ sense-voice-desktop/
 tauri = { version = "2.1", features = ["dialog", "notification", "global-shortcut"] }
 tauri-plugin-store = "2.0"
 
-# 音频处理
+# 音频处理（纯 Rust + SIMD）
+symphonia = { version = "0.5", features = ["all"] }  # 全格式音频解码
 cpal = "0.15"                    # 跨平台音频 I/O
 hound = "3.5"                    # WAV 读写
-minimp3 = "0.5"                  # MP3 解码
-symphonia = "0.5"                # 全格式音频解码
-ffmpeg-next = "7.0"              # FFmpeg 绑定
+rubato = "0.14"                  # 高质量音频重采样
+wide = { version = "0.7", features = ["safe"] }      # SIMD 加速
+safe-arch = "0.7"                # 平台 SIMD intrinsics
+dasp = "0.11"                    # 数字信号处理
+ringbuf = "0.3"                  # 音频可视化缓冲
 
 # 文本处理
 jieba-rs = "0.7"                 # 中文分词
